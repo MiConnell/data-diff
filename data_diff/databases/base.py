@@ -848,7 +848,7 @@ class BaseDialect(abc.ABC):
     def normalize_uuid(self, value: str, coltype: ColType_UUID) -> str:
         """Creates an SQL expression, that strips uuids of artifacts like whitespace."""
         if isinstance(coltype, String_UUID):
-            return f"TRIM({value})"
+            return f"LTRIM(RTRIM({value}))"
         return self.to_string(value)
 
     def normalize_json(self, value: str, _coltype: JSON) -> str:
